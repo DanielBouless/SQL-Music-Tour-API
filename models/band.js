@@ -5,7 +5,21 @@ const { Sequelize, DataTypes, Model } = require("sequlize");
 
 
 // Create a class called Band using the base class 'Model"
-class Band extends Model{}
+class Band extends Model{ 
+  static associate({ MeetGreet, SetTime }) {
+      // meet and greets
+      Band.hasMany(MeetGreet, {
+        foreignKey: "band_id",
+        as: "meet_greets"
+      })
+      //Set times
+      Band.hasMany(SetTime, {
+        foreignKey: "band_id",
+        as: "set_times"
+      })
+    }
+}
+
 
 //See below comments for how/whats going on broski
 

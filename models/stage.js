@@ -2,7 +2,22 @@
 const { Sequelize, DataTypes,  Model } = require('sequelize')
 
 // MODEL
-class Stage extends Model{}
+class Stage extends Model{
+    static associate({ Event, StageEvent }) {
+      // define association here
+      Stage.belongsToMany(Event,{
+        foreignKey: "stage_id",
+        as: "events",
+        through: StageEvents,
+      })
+
+      Stage.hasMany(SetTimes, {
+        foreignKey: "stage_id",
+        as: "set_times"
+      })
+      
+    }
+}
 
 Stage.init({
     stage_id: { 
@@ -28,8 +43,8 @@ Stage.init({
     },
 }, {
     Sequelize,                           
-    modelName: 'stage',
-    tableName: 'Stages',
+    modelName: 'Stage',
+    tableName: 'stages',
     timestamps: false
 }) 
 
